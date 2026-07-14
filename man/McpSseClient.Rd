@@ -10,7 +10,7 @@ Connect to an MCP server via Server-Sent Events (SSE).
 Manages connection to a remote MCP server via SSE transport.
 }
 \section{Super class}{
-\code{aisdk.mcp::McpClient} -> \code{McpSseClient}
+\code{\link[aisdk.mcp:McpClient]{aisdk.mcp::McpClient}} -> \code{McpSseClient}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -34,7 +34,9 @@ Manages connection to a remote MCP server via SSE transport.
 <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="as_sdk_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-as_sdk_tools'><code>aisdk.mcp::McpClient$as_sdk_tools()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="call_tool"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-call_tool'><code>aisdk.mcp::McpClient$call_tool()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="close"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-close'><code>aisdk.mcp::McpClient$close()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="get_prompt"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-get_prompt'><code>aisdk.mcp::McpClient$get_prompt()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="is_alive"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-is_alive'><code>aisdk.mcp::McpClient$is_alive()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_prompts"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_prompts'><code>aisdk.mcp::McpClient$list_prompts()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_resources"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_resources'><code>aisdk.mcp::McpClient$list_resources()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_tools'><code>aisdk.mcp::McpClient$list_tools()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="read_resource"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-read_resource'><code>aisdk.mcp::McpClient$read_resource()</code></a></span></li>

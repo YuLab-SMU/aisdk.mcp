@@ -118,6 +118,44 @@ McpClient <- R6::R6Class(
     },
 
     #' @description
+    #' List available prompt templates from the MCP server (`prompts/list`).
+    #' @return A list of prompt definitions (name, description, arguments).
+    list_prompts = function() {
+      private$ensure_alive()
+      req <- mcp_prompts_list_request(id = private$next_id())
+      resp <- private$send_request(req)
+
+      if (!is.null(resp$error)) {
+        stop("MCP error: ", resp$error$message)
+      }
+
+      resp$result$prompts %||% list()
+    },
+
+    #' @description
+    #' Get a prompt from the MCP server, rendered with the given arguments
+    #' (`prompts/get`).
+    #' @param name The prompt name.
+    #' @param arguments A named list of prompt arguments (default none).
+    #' @return The prompt result (description + messages).
+    get_prompt = function(name, arguments = list()) {
+      private$ensure_alive()
+      args <- if (length(arguments) == 0) {
+        structure(list(), names = character(0))
+      } else {
+        arguments
+      }
+      req <- mcp_prompts_get_request(name, args, id = private$next_id())
+      resp <- private$send_request(req)
+
+      if (!is.null(resp$error)) {
+        stop("MCP error: ", resp$error$message)
+      }
+
+      resp$result
+    },
+
+    #' @description
     #' Check if the MCP server process is alive
     #' @return TRUE if alive, FALSE otherwise
     is_alive = function() {

@@ -108,8 +108,24 @@ test_that("mcp_resources_list_request creates proper format", {
 
 test_that("mcp_resources_read_request creates proper format", {
   req <- mcp_resources_read_request("file:///test.txt", id = 5L)
-  
+
   expect_equal(req$method, "resources/read")
   expect_equal(req$params$uri, "file:///test.txt")
   expect_equal(req$id, 5L)
+})
+
+test_that("mcp_prompts_list_request creates proper format", {
+  req <- mcp_prompts_list_request(id = 6L)
+
+  expect_equal(req$method, "prompts/list")
+  expect_equal(req$id, 6L)
+})
+
+test_that("mcp_prompts_get_request carries name and arguments", {
+  req <- mcp_prompts_get_request("code_review", list(language = "R"), id = 7L)
+
+  expect_equal(req$method, "prompts/get")
+  expect_equal(req$params$name, "code_review")
+  expect_equal(req$params$arguments$language, "R")
+  expect_equal(req$id, 7L)
 })

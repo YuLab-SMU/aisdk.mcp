@@ -168,3 +168,28 @@ mcp_resources_read_request <- function(uri, id) {
     id = id
   )
 }
+
+#' Create MCP prompts/list request
+#' @param id Request ID
+#' @return A JSON-RPC request
+#' @keywords internal
+mcp_prompts_list_request <- function(id) {
+  jsonrpc_request(method = "prompts/list", id = id)
+}
+
+#' Create MCP prompts/get request
+#' @param name The prompt name
+#' @param arguments Prompt arguments as a named list
+#' @param id Request ID
+#' @return A JSON-RPC request
+#' @keywords internal
+mcp_prompts_get_request <- function(name, arguments = structure(list(), names = character(0)), id) {
+  jsonrpc_request(
+    method = "prompts/get",
+    params = list(
+      name = name,
+      arguments = arguments
+    ),
+    id = id
+  )
+}

@@ -28,6 +28,8 @@ Manages connection to an external MCP server via stdio.
 \item \href{#method-McpClient-call_tool}{\code{McpClient$call_tool()}}
 \item \href{#method-McpClient-list_resources}{\code{McpClient$list_resources()}}
 \item \href{#method-McpClient-read_resource}{\code{McpClient$read_resource()}}
+\item \href{#method-McpClient-list_prompts}{\code{McpClient$list_prompts()}}
+\item \href{#method-McpClient-get_prompt}{\code{McpClient$get_prompt()}}
 \item \href{#method-McpClient-is_alive}{\code{McpClient$is_alive()}}
 \item \href{#method-McpClient-close}{\code{McpClient$close()}}
 \item \href{#method-McpClient-as_sdk_tools}{\code{McpClient$as_sdk_tools()}}
@@ -124,6 +126,42 @@ Read a resource from the MCP server
 }
 \subsection{Returns}{
 The resource contents
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-McpClient-list_prompts"></a>}}
+\if{latex}{\out{\hypertarget{method-McpClient-list_prompts}{}}}
+\subsection{Method \code{list_prompts()}}{
+List available prompt templates from the MCP server (\code{prompts/list}).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$list_prompts()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A list of prompt definitions (name, description, arguments).
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-McpClient-get_prompt"></a>}}
+\if{latex}{\out{\hypertarget{method-McpClient-get_prompt}{}}}
+\subsection{Method \code{get_prompt()}}{
+Get a prompt from the MCP server, rendered with the given arguments
+(\code{prompts/get}).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$get_prompt(name, arguments = list())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The prompt name.}
+
+\item{\code{arguments}}{A named list of prompt arguments (default none).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The prompt result (description + messages).
 }
 }
 \if{html}{\out{<hr>}}
