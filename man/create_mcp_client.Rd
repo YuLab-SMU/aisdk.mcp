@@ -4,7 +4,12 @@
 \alias{create_mcp_client}
 \title{Create an MCP Client}
 \usage{
-create_mcp_client(command, args = character(), env = NULL)
+create_mcp_client(
+  command,
+  args = character(),
+  env = NULL,
+  sampling_handler = NULL
+)
 }
 \arguments{
 \item{command}{The command to run the MCP server}
@@ -12,6 +17,10 @@ create_mcp_client(command, args = character(), env = NULL)
 \item{args}{Command arguments}
 
 \item{env}{Environment variables}
+
+\item{sampling_handler}{Optional \verb{function(params)} answering server
+\code{sampling/createMessage} requests; see \code{\link[=mcp_sampling_handler]{mcp_sampling_handler()}}. When set,
+the client advertises the \code{sampling} capability.}
 }
 \value{
 An McpClient object

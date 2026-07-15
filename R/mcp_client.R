@@ -23,14 +23,28 @@ McpClient <- R6::R6Class(
     #' @field capabilities Server capabilities
     capabilities = NULL,
 
+    #' @field sampling_handler Optional `function(params)` answering server
+    #'   `sampling/createMessage` requests (see [mcp_sampling_handler()]).
+    sampling_handler = NULL,
+
     #' @description
 
     #' Create a new MCP Client
     #' @param command The command to run (e.g., "npx", "python")
     #' @param args Command arguments (e.g., c("-y", "@modelcontextprotocol/server-github"))
     #' @param env Environment variables as a named character vector
+    #' @param sampling_handler Optional `function(params)` that answers a
+    #'   server's `sampling/createMessage` requests by returning an MCP
+    #'   CreateMessageResult. When supplied, the client advertises the `sampling`
+    #'   capability. Use [mcp_sampling_handler()] to back it with an aisdk model.
     #' @return A new McpClient object
-    initialize = function(command, args = character(), env = NULL) {
+    initialize = function(command, args = character(), env = NULL,
+                          sampling_handler = NULL) {
+      if (!is.null(sampling_handler) && !is.function(sampling_handler)) {
+        stop("`sampling_handler` must be a function or NULL")
+      }
+      self$sampling_handler <- sampling_handler
+
       # Build environment
       proc_env <- if (!is.null(env)) {
         c(Sys.getenv(), env)
@@ -193,10 +207,11 @@ McpClient <- R6::R6Class(
       }
     },
     perform_handshake = function() {
-      # Send initialize request
+      # Send initialize request, advertising `sampling` when a handler is set so
+      # the server may ask this client to generate on its behalf.
       init_req <- mcp_initialize_request(
         client_info = list(name = "r-ai-sdk", version = "0.7.0"),
-        capabilities = structure(list(), names = character(0)),
+        capabilities = mcp_client_capabilities(is.function(self$sampling_handler)),
         id = private$next_id()
       )
 
@@ -227,10 +242,15 @@ McpClient <- R6::R6Class(
       json_str <- paste0(mcp_serialize(notification), "\n")
       self$process$write_input(json_str)
     },
+    write_message = function(message) {
+      self$process$write_input(paste0(mcp_serialize(message), "\n"))
+    },
     read_response = function(timeout_ms = 60000) {
-      # Read line from stdout
+      # Read lines from stdout until the response to our request arrives. The
+      # transport is full-duplex: a server may interleave its own requests (e.g.
+      # `sampling/createMessage`) before replying. Those are handled inline — we
+      # answer them and keep reading — instead of being mistaken for the reply.
       start_time <- Sys.time()
-      result <- ""
 
       while (TRUE) {
         # Check timeout
@@ -242,11 +262,25 @@ McpClient <- R6::R6Class(
         # Try to read
         chunk <- self$process$read_output_lines(n = 1)
         if (length(chunk) > 0 && nzchar(chunk)) {
+          msg <- mcp_deserialize(chunk)
+
+          # A server->client request carries `method` AND `id`: answer it and
+          # keep waiting for our own response.
+          if (is.list(msg) && !is.null(msg$method) && !is.null(msg$id)) {
+            reply <- mcp_handle_server_request(msg, self$sampling_handler)
+            private$write_message(reply)
+            next
+          }
+          # A server notification (`method`, no `id`) is not addressed to us.
+          if (is.list(msg) && !is.null(msg$method)) {
+            next
+          }
+
+          # Otherwise this is the response we were waiting for.
           return(chunk)
         }
 
         # Small sleep to avoid busy waiting
-
         Sys.sleep(0.01)
       }
     },
@@ -297,6 +331,9 @@ McpClient <- R6::R6Class(
 #' @param command The command to run the MCP server
 #' @param args Command arguments
 #' @param env Environment variables
+#' @param sampling_handler Optional `function(params)` answering server
+#'   `sampling/createMessage` requests; see [mcp_sampling_handler()]. When set,
+#'   the client advertises the `sampling` capability.
 #' @return An McpClient object
 #' @export
 #'
@@ -323,6 +360,7 @@ McpClient <- R6::R6Class(
 #'   client$close()
 #' }
 #' }
-create_mcp_client <- function(command, args = character(), env = NULL) {
-  McpClient$new(command, args, env)
+create_mcp_client <- function(command, args = character(), env = NULL,
+                              sampling_handler = NULL) {
+  McpClient$new(command, args, env, sampling_handler = sampling_handler)
 }

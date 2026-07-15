@@ -17,6 +17,9 @@ Manages connection to an external MCP server via stdio.
 \item{\code{server_info}}{Information about the connected server}
 
 \item{\code{capabilities}}{Server capabilities}
+
+\item{\code{sampling_handler}}{Optional \verb{function(params)} answering server
+\code{sampling/createMessage} requests (see \code{\link[=mcp_sampling_handler]{mcp_sampling_handler()}}).}
 }
 \if{html}{\out{</div>}}
 }
@@ -42,7 +45,7 @@ Manages connection to an external MCP server via stdio.
 \subsection{Method \code{new()}}{
 Create a new MCP Client
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{McpClient$new(command, args = character(), env = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$new(command, args = character(), env = NULL, sampling_handler = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -53,6 +56,11 @@ Create a new MCP Client
 \item{\code{args}}{Command arguments (e.g., c("-y", "@modelcontextprotocol/server-github"))}
 
 \item{\code{env}}{Environment variables as a named character vector}
+
+\item{\code{sampling_handler}}{Optional \verb{function(params)} that answers a
+server's \code{sampling/createMessage} requests by returning an MCP
+CreateMessageResult. When supplied, the client advertises the \code{sampling}
+capability. Use \code{\link[=mcp_sampling_handler]{mcp_sampling_handler()}} to back it with an aisdk model.}
 }
 \if{html}{\out{</div>}}
 }
