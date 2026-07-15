@@ -8,7 +8,8 @@ create_mcp_client(
   command,
   args = character(),
   env = NULL,
-  sampling_handler = NULL
+  sampling_handler = NULL,
+  inherit_env = FALSE
 )
 }
 \arguments{
@@ -21,6 +22,11 @@ create_mcp_client(
 \item{sampling_handler}{Optional \verb{function(params)} answering server
 \code{sampling/createMessage} requests; see \code{\link[=mcp_sampling_handler]{mcp_sampling_handler()}}. When set,
 the client advertises the \code{sampling} capability.}
+
+\item{inherit_env}{Logical. By default (\code{FALSE}) the spawned server does NOT
+inherit this session's environment (so your model API keys stay private) —
+only non-secret system variables plus \code{env}. Set \code{TRUE} to inherit the
+parent environment with credentials stripped, for a trusted server.}
 }
 \value{
 An McpClient object

@@ -77,7 +77,13 @@ Self (invisibly).
 \subsection{Method \code{connect()}}{
 Connect to an MCP server and add it to the router.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{McpRouter$connect(name, command, args = character(), env = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{McpRouter$connect(
+  name,
+  command,
+  args = character(),
+  env = NULL,
+  inherit_env = FALSE
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -90,6 +96,9 @@ Connect to an MCP server and add it to the router.
 \item{\code{args}}{Command arguments.}
 
 \item{\code{env}}{Environment variables.}
+
+\item{\code{inherit_env}}{Logical. Passed to \link{McpClient}; \code{FALSE} (default) keeps
+this session's secrets out of the spawned server's environment.}
 }
 \if{html}{\out{</div>}}
 }

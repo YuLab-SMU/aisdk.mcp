@@ -37,20 +37,23 @@ McpClient <- R6::R6Class(
     #'   server's `sampling/createMessage` requests by returning an MCP
     #'   CreateMessageResult. When supplied, the client advertises the `sampling`
     #'   capability. Use [mcp_sampling_handler()] to back it with an aisdk model.
+    #' @param inherit_env Logical. A local MCP server is a third-party binary, so
+    #'   by default (`FALSE`) it does NOT inherit this session's environment —
+    #'   only a minimal set of non-secret system variables plus whatever you pass
+    #'   in `env`, so your model API keys are never handed to the server. Set
+    #'   `TRUE` to inherit the parent environment (still with recognised
+    #'   credentials stripped) for a server you trust that needs it.
     #' @return A new McpClient object
     initialize = function(command, args = character(), env = NULL,
-                          sampling_handler = NULL) {
+                          sampling_handler = NULL, inherit_env = FALSE) {
       if (!is.null(sampling_handler) && !is.function(sampling_handler)) {
         stop("`sampling_handler` must be a function or NULL")
       }
       self$sampling_handler <- sampling_handler
 
-      # Build environment
-      proc_env <- if (!is.null(env)) {
-        c(Sys.getenv(), env)
-      } else {
-        NULL
-      }
+      # Build a deliberately minimal, secret-free environment for the child so a
+      # local server never inherits this session's model API keys (see mcp_env).
+      proc_env <- mcp_build_process_env(env, inherit_env = inherit_env)
 
       # Start the MCP server process
       self$process <- processx::process$new(
@@ -334,6 +337,10 @@ McpClient <- R6::R6Class(
 #' @param sampling_handler Optional `function(params)` answering server
 #'   `sampling/createMessage` requests; see [mcp_sampling_handler()]. When set,
 #'   the client advertises the `sampling` capability.
+#' @param inherit_env Logical. By default (`FALSE`) the spawned server does NOT
+#'   inherit this session's environment (so your model API keys stay private) —
+#'   only non-secret system variables plus `env`. Set `TRUE` to inherit the
+#'   parent environment with credentials stripped, for a trusted server.
 #' @return An McpClient object
 #' @export
 #'
@@ -361,6 +368,7 @@ McpClient <- R6::R6Class(
 #' }
 #' }
 create_mcp_client <- function(command, args = character(), env = NULL,
-                              sampling_handler = NULL) {
-  McpClient$new(command, args, env, sampling_handler = sampling_handler)
+                              sampling_handler = NULL, inherit_env = FALSE) {
+  McpClient$new(command, args, env,
+                sampling_handler = sampling_handler, inherit_env = inherit_env)
 }

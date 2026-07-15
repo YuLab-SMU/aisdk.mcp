@@ -45,7 +45,13 @@ Manages connection to an external MCP server via stdio.
 \subsection{Method \code{new()}}{
 Create a new MCP Client
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{McpClient$new(command, args = character(), env = NULL, sampling_handler = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$new(
+  command,
+  args = character(),
+  env = NULL,
+  sampling_handler = NULL,
+  inherit_env = FALSE
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -61,6 +67,13 @@ Create a new MCP Client
 server's \code{sampling/createMessage} requests by returning an MCP
 CreateMessageResult. When supplied, the client advertises the \code{sampling}
 capability. Use \code{\link[=mcp_sampling_handler]{mcp_sampling_handler()}} to back it with an aisdk model.}
+
+\item{\code{inherit_env}}{Logical. A local MCP server is a third-party binary, so
+by default (\code{FALSE}) it does NOT inherit this session's environment —
+only a minimal set of non-secret system variables plus whatever you pass
+in \code{env}, so your model API keys are never handed to the server. Set
+\code{TRUE} to inherit the parent environment (still with recognised
+credentials stripped) for a server you trust that needs it.}
 }
 \if{html}{\out{</div>}}
 }

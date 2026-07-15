@@ -344,9 +344,12 @@ McpRouter <- R6::R6Class(
     #' @param command Command to run the MCP server.
     #' @param args Command arguments.
     #' @param env Environment variables.
+    #' @param inherit_env Logical. Passed to [McpClient]; `FALSE` (default) keeps
+    #'   this session's secrets out of the spawned server's environment.
     #' @return Self (invisibly).
-    connect = function(name, command, args = character(), env = NULL) {
-      client <- McpClient$new(command, args, env)
+    connect = function(name, command, args = character(), env = NULL,
+                       inherit_env = FALSE) {
+      client <- McpClient$new(command, args, env, inherit_env = inherit_env)
       self$add_client(name, client)
       invisible(self)
     },
