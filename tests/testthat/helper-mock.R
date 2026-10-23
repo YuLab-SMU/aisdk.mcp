@@ -1,6 +1,6 @@
 
 MockModel <- R6::R6Class("MockModel",
-  inherit = LanguageModelV1,
+  inherit = aisdk::LanguageModelV1,
   public = list(
     provider = "mock",
     model_id = "mock-model",

@@ -1,6 +1,6 @@
 Package: aisdk.mcp
 Title: Model Context Protocol (MCP) Client and Server for 'aisdk'
-Version: 0.1.1
+Version: 0.1.3
 Authors@R: person("Yonghe", "Xia", , "xiayh17@gmail.com", role = c("aut", "cre"))
 Description: Model Context Protocol ('MCP') support for the 'aisdk' toolkit:
     a client for connecting to and using tools from local (stdio) or remote

@@ -1,3 +1,26 @@
+# aisdk.mcp 0.1.3
+
+* New `mcp_action()`: bind one tool into a data-first function. It reads the
+  server's schema to decide which argument receives the value (`into`) and how a
+  vector is written (`as`: JSON array, carriage-return string, or scalar), so a
+  cross-server step reduces to `value |> act()`. Unknown tool names and
+  ambiguous schemas fail when the action is built, not on first use.
+* New `mcp_intent()`: describe a pipeline in one sentence and get back R code
+  that uses it, built only from the tools the servers actually advertise. The
+  code is returned and never evaluated. `model = NULL` uses the aisdk default
+  model, so no model argument is needed when one is configured. `context =`
+  passes instructions (a package's typed functions, for instance) so the code
+  prefers them over raw `mcp_action()` calls.
+
+# aisdk.mcp 0.1.2
+
+* New `combine_mcp_tools()`: collect the tools of several MCP clients into one
+  `tools=` list. Tool names are flat in a session, so each server's tools are
+  prefixed with its own advertised name (`gpsadb__query_gene`), and duplicate
+  names get a numeric suffix. With `prefix = FALSE` the names are kept as they
+  are and duplicates raise an error instead of one server silently shadowing
+  another.
+
 # aisdk.mcp 0.1.1
 
 * New **Streamable HTTP** transport: `create_mcp_http_client()` /

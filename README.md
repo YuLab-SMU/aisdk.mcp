@@ -19,6 +19,15 @@ client$call_tool_data("name", list(...))# payload as plain R data
 client$as_sdk_tools()                   # hand them to an aisdk agent
 ```
 
+One agent can talk to several servers at once; `combine_mcp_tools()` merges
+their tools and prefixes the names with each server's own, so two databases that
+both expose `query_gene` cannot shadow each other:
+
+```r
+tools <- combine_mcp_tools(gpsadb = client_a, uniprot = client_b)
+# gpsadb__query_gene, uniprot__search, ...
+```
+
 A self-contained MCP protocol implementation; depends only on the core `aisdk`
 contract (`tool`, `generate_text`, schema builders), which is why it extracts
 cleanly with no changes to core.
