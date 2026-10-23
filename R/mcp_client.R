@@ -88,6 +88,10 @@ McpClient <- R6::R6Class(
 
     #' @description
     #' Call a tool on the MCP server
+    #'
+    #' A tool that reports failure (`isError: true`, the MCP convention for a
+    #' tool-level error such as "unknown dataset") raises a condition of class
+    #' `mcp_tool_error` whose message is the server's explanation.
     #' @param name The tool name
     #' @param arguments Tool arguments as a named list
     #' @return The tool result
@@ -100,7 +104,28 @@ McpClient <- R6::R6Class(
         stop("MCP tool error: ", resp$error$message)
       }
 
+      if (isTRUE(resp$result$isError)) {
+        abort(
+          mcp_tool_error_message(resp$result),
+          class = "mcp_tool_error"
+        )
+      }
+
       resp$result
+    },
+
+    #' @description
+    #' Call a tool and return its payload as plain R data
+    #'
+    #' Prefers MCP structured output (`structuredContent`, 2025-06-18) and falls
+    #' back to parsing the text block of `content` — older servers and some
+    #' tools only fill the latter. Nested objects and arrays come back as nested
+    #' lists, ready to be turned into records.
+    #' @param name The tool name
+    #' @param arguments Tool arguments as a named list
+    #' @return The tool payload (usually a named list).
+    call_tool_data = function(name, arguments = list()) {
+      mcp_tool_payload(self$call_tool(name, arguments))
     },
 
     #' @description

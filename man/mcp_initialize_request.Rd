@@ -7,7 +7,8 @@
 mcp_initialize_request(
   client_info,
   capabilities = structure(list(), names = character(0)),
-  id = 1L
+  id = 1L,
+  protocol_version = "2024-11-05"
 )
 }
 \arguments{

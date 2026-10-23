@@ -4,3 +4,5 @@
 ^LICENSE\.md$
 ^\.DS_Store$
 ^cran-comments\.md$
+^AGENTS\.md$
+^agents\.md$

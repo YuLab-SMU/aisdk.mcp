@@ -104,11 +104,12 @@ mcp_deserialize <- function(json_str) {
 #' @param id Request ID
 #' @return A JSON-RPC request for initialize
 #' @keywords internal
-mcp_initialize_request <- function(client_info, capabilities = structure(list(), names = character(0)), id = 1L) {
+mcp_initialize_request <- function(client_info, capabilities = structure(list(), names = character(0)), id = 1L,
+                                  protocol_version = "2024-11-05") {
   jsonrpc_request(
     method = "initialize",
     params = list(
-      protocolVersion = "2024-11-05",
+      protocolVersion = protocol_version,
       clientInfo = client_info,
       capabilities = capabilities
     ),
@@ -138,6 +139,12 @@ mcp_tools_list_request <- function(id) {
 #' @return A JSON-RPC request
 #' @keywords internal
 mcp_tools_call_request <- function(tool_name, arguments = structure(list(), names = character(0)), id) {
+  # An unnamed empty list serializes as `[]`, but `arguments` must be a JSON
+  # object (`{}`): strict servers reject `[]` for a tool that takes no
+  # arguments ("cannot unmarshal array into Go value of type ...").
+  if (length(arguments) == 0) {
+    arguments <- structure(list(), names = character(0))
+  }
   jsonrpc_request(
     method = "tools/call",
     params = list(
@@ -192,4 +199,48 @@ mcp_prompts_get_request <- function(name, arguments = structure(list(), names = 
     ),
     id = id
   )
+}
+
+# --- Tool result helpers ---
+
+#' Extract the payload of an MCP tool result
+#'
+#' Prefers `structuredContent` (MCP 2025-06-18 structured output) and falls back
+#' to parsing the JSON held in the text block of `content`, which is what older
+#' servers send.
+#' @param result An MCP `tools/call` result.
+#' @return The payload (named list), or `list(text = <raw text>)` when the text
+#'   block is not JSON.
+#' @keywords internal
+mcp_tool_payload <- function(result) {
+  if (!is.null(result$structuredContent)) {
+    return(result$structuredContent)
+  }
+  texts <- vapply(
+    result$content %||% list(),
+    function(block) {
+      if (identical(block$type %||% "", "text")) block$text %||% "" else ""
+    },
+    character(1)
+  )
+  txt <- paste(texts[nzchar(texts)], collapse = "\n")
+  if (!nzchar(txt)) return(list())
+  tryCatch(
+    jsonlite::fromJSON(txt, simplifyVector = FALSE),
+    error = function(e) list(text = txt)
+  )
+}
+
+#' Human-readable message of a failed tool call
+#' @param result An MCP `tools/call` result with `isError = TRUE`.
+#' @return A single string.
+#' @keywords internal
+mcp_tool_error_message <- function(result) {
+  texts <- vapply(
+    result$content %||% list(),
+    function(block) block$text %||% "",
+    character(1)
+  )
+  msg <- paste(texts[nzchar(texts)], collapse = "\n")
+  if (!nzchar(msg)) "MCP tool reported an error" else msg
 }

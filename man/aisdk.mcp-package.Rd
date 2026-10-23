@@ -19,5 +19,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Yonghe Xia \email{xiayh17@gmail.com}
 
+Authors:
+\itemize{
+  \item Yonghe Xia \email{xiayh17@gmail.com}
+}
+
 }
 \keyword{internal}

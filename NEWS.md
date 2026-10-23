@@ -1,17 +1,15 @@
-# aisdk.mcp (development version)
+# aisdk.mcp 0.1.1
 
-* **Security (behaviour change):** a local (stdio) MCP server no longer inherits
-  this R session's full environment. Previously `McpClient` started the server
-  with every environment variable — including `OPENAI_API_KEY`,
-  `ANTHROPIC_API_KEY`, `GITHUB_TOKEN`, etc. — exposing your model keys to a
-  third-party process. By default the server now receives only a minimal set of
-  non-secret system variables plus whatever you pass in `env`. Share exactly
-  what a server needs via `env`, or pass `inherit_env = TRUE`
-  (`create_mcp_client()` / `McpClient$new()`) to inherit the parent environment
-  with recognised credentials still stripped.
-* Added MCP **sampling**: register `sampling_handler` (see
-  `mcp_sampling_handler()`) so a server can ask the client to run a generation
-  on its behalf without holding API keys.
+* New **Streamable HTTP** transport: `create_mcp_http_client()` /
+  `McpHttpClient`, for the MCP 2025-06-18 single-POST-endpoint style that most
+  public MCP servers use. `create_mcp_sse_client()` only speaks the older
+  HTTP+SSE transport and gets HTTP 405 from such servers.
+* New `call_tool_data()` returns a tool payload as plain R data, preferring MCP
+  `structuredContent` and falling back to the text block.
+* `call_tool()` now raises a `mcp_tool_error` condition when a tool reports
+  `isError: true`, carrying the server's message.
+* Fix: a tool called with no arguments sent `"arguments": []`; it now sends
+  `{}`, which strict servers require.
 
 # aisdk.mcp 0.1.0
 
