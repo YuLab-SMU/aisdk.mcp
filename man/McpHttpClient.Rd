@@ -23,135 +23,133 @@ stream, which many servers (including those that answer \code{GET} with 405) do
 not offer. A \code{sampling_handler} is therefore neither used nor advertised.
 }
 \section{Super class}{
-\code{\link[aisdk.mcp:McpClient]{McpClient}} -> \code{McpHttpClient}
+\code{\link[aisdk.mcp:McpClient]{aisdk.mcp::McpClient}} -> \code{McpHttpClient}
 }
 \section{Public fields}{
-  \if{html}{\out{<div class="r6-fields">}}
-  \describe{
-    \item{\code{url}}{The MCP endpoint URL.}
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{url}}{The MCP endpoint URL.}
 
-    \item{\code{headers}}{Extra HTTP headers (auth, user agent, ...).}
+\item{\code{headers}}{Extra HTTP headers (auth, user agent, ...).}
 
-    \item{\code{timeout}}{Seconds allowed per request.}
+\item{\code{timeout}}{Seconds allowed per request.}
 
-    \item{\code{protocol_version}}{Protocol version requested at handshake; the
+\item{\code{protocol_version}}{Protocol version requested at handshake; the
 server echoes the version it will speak.}
 
-    \item{\code{session_id}}{Session id issued by a stateful server
+\item{\code{session_id}}{Session id issued by a stateful server
 (\code{Mcp-Session-Id} header), echoed back on later requests. \code{NULL} for
 stateless servers.}
 
-    \item{\code{instructions}}{Free-text usage instructions sent by the server
+\item{\code{instructions}}{Free-text usage instructions sent by the server
 (optional capability).}
 
-    \item{\code{closed}}{Whether \code{\link[=close]{close()}} has been called.}
-  }
-  \if{html}{\out{</div>}}
+\item{\code{closed}}{Whether \code{\link[=close]{close()}} has been called.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-  \itemize{
-    \item \href{#method-McpHttpClient-initialize}{\code{McpHttpClient$new()}}
-    \item \href{#method-McpHttpClient-is_alive}{\code{McpHttpClient$is_alive()}}
-    \item \href{#method-McpHttpClient-close}{\code{McpHttpClient$close()}}
-    \item \href{#method-McpHttpClient-clone}{\code{McpHttpClient$clone()}}
-  }
+\itemize{
+\item \href{#method-McpHttpClient-new}{\code{McpHttpClient$new()}}
+\item \href{#method-McpHttpClient-is_alive}{\code{McpHttpClient$is_alive()}}
+\item \href{#method-McpHttpClient-close}{\code{McpHttpClient$close()}}
+\item \href{#method-McpHttpClient-clone}{\code{McpHttpClient$clone()}}
 }
-\if{html}{\out{<details><summary>Inherited methods</summary>
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
 <ul>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="as_sdk_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-as_sdk_tools'><code>McpClient$as_sdk_tools()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="call_tool"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-call_tool'><code>McpClient$call_tool()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="call_tool_data"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-call_tool_data'><code>McpClient$call_tool_data()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="get_prompt"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-get_prompt'><code>McpClient$get_prompt()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_prompts"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_prompts'><code>McpClient$list_prompts()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_resources"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_resources'><code>McpClient$list_resources()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_tools'><code>McpClient$list_tools()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="read_resource"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-read_resource'><code>McpClient$read_resource()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="as_sdk_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-as_sdk_tools'><code>aisdk.mcp::McpClient$as_sdk_tools()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="call_tool"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-call_tool'><code>aisdk.mcp::McpClient$call_tool()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="call_tool_data"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-call_tool_data'><code>aisdk.mcp::McpClient$call_tool_data()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="get_prompt"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-get_prompt'><code>aisdk.mcp::McpClient$get_prompt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_prompts"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_prompts'><code>aisdk.mcp::McpClient$list_prompts()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_resources"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_resources'><code>aisdk.mcp::McpClient$list_resources()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_tools'><code>aisdk.mcp::McpClient$list_tools()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="read_resource"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-read_resource'><code>aisdk.mcp::McpClient$read_resource()</code></a></span></li>
 </ul>
-</details>}}
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-McpHttpClient-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-McpHttpClient-initialize}{}}}
-\subsection{\code{McpHttpClient$new()}}{
-  Connect to a remote MCP server over Streamable HTTP.
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpHttpClient$new(
+\if{html}{\out{<a id="method-McpHttpClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-McpHttpClient-new}{}}}
+\subsection{Method \code{new()}}{
+Connect to a remote MCP server over Streamable HTTP.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpHttpClient$new(
   url,
   headers = list(),
   timeout = 120,
   protocol_version = "2025-06-18",
   transport = NULL
-)}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{url}}{The MCP endpoint, e.g. \code{"https://gpsadb.gzdlab.com/mcp"}.}
-      \item{\code{headers}}{Named list of extra HTTP headers.}
-      \item{\code{timeout}}{Seconds allowed per request.}
-      \item{\code{protocol_version}}{Protocol version to request.}
-      \item{\code{transport}}{Optional \verb{function(message)} returning the parsed
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{The MCP endpoint, e.g. \code{"https://gpsadb.gzdlab.com/mcp"}.}
+
+\item{\code{headers}}{Named list of extra HTTP headers.}
+
+\item{\code{timeout}}{Seconds allowed per request.}
+
+\item{\code{protocol_version}}{Protocol version to request.}
+
+\item{\code{transport}}{Optional \verb{function(message)} returning the parsed
 JSON-RPC response (or \code{NULL} for notifications). Supplying one bypasses
 HTTP entirely — this is how the test suite exercises the client without
 touching the network. Leave \code{NULL} in normal use.}
-    }
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    A new McpHttpClient object.
-  }
 }
-
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A new McpHttpClient object.
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpHttpClient-is_alive"></a>}}
 \if{latex}{\out{\hypertarget{method-McpHttpClient-is_alive}{}}}
-\subsection{\code{McpHttpClient$is_alive()}}{
-  An HTTP client is alive until it is closed.
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpHttpClient$is_alive()}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    \code{TRUE} while the client is usable.
-  }
+\subsection{Method \code{is_alive()}}{
+An HTTP client is alive until it is closed.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpHttpClient$is_alive()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\code{TRUE} while the client is usable.
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpHttpClient-close"></a>}}
 \if{latex}{\out{\hypertarget{method-McpHttpClient-close}{}}}
-\subsection{\code{McpHttpClient$close()}}{
-  Close the client. For this transport that only marks it unusable; the
+\subsection{Method \code{close()}}{
+Close the client. For this transport that only marks it unusable; the
 server holds no session to tear down (a stateful server expires it).
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpHttpClient$close()}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    Self, invisibly.
-  }
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpHttpClient$close()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+Self, invisibly.
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpHttpClient-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-McpHttpClient-clone}{}}}
-\subsection{\code{McpHttpClient$clone()}}{
-  The objects of this class are cloneable with this method.
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpHttpClient$clone(deep = FALSE)}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{deep}}{Whether to make a deep clone.}
-    }
-    \if{html}{\out{</div>}}
-  }
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpHttpClient$clone(deep = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
 }

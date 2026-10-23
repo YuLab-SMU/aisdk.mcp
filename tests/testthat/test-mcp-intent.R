@@ -37,7 +37,7 @@ test_that("mcp_intent returns the code block, never runs it", {
   code <- mcp_intent(
     "which perturbations change CDKN1A",
     fake_two_servers(),
-    model = model_reply("Here you go:\n```r\nact <- mcp_action(gps, \"query_gene\")\nact(\"CDKN1A\")\n```\n")
+    model = model_reply("Here you go:\n```r\nlist(hits = mcp_action(gps, \"query_gene\")(\"CDKN1A\"))\nlist(hits = act(\"CDKN1A\"))\n```\n")
   )
   expect_type(code, "character")
   expect_match(code, "mcp_action\\(gps, \"query_gene\"\\)")
@@ -54,7 +54,7 @@ test_that("code that does not parse is refused", {
 
 test_that("text without a code fence is taken as the code", {
   code <- mcp_intent("x", fake_two_servers(),
-                     model = model_reply("act <- mcp_action(gps, \"query_gene\")\n"))
+                     model = model_reply("list(hits = mcp_action(gps, \"query_gene\")(\"CDKN1A\"))\n"))
   expect_match(code, "query_gene")
 })
 
@@ -69,13 +69,13 @@ test_that("project context is passed to the model", {
   local_mocked_bindings(
     generate_text = function(model, prompt, system, temperature) {
       seen$prompt <- prompt
-      list(text = "```r\nx <- 1\n```")
+      list(text = "```r\nlist(x = 1)\n```")
     },
     .package = "aisdk.mcp"
   )
   code <- mcp_intent("do a thing", fake_two_servers(),
                      context = "prefer gpsadb_de() when it fits")
-  expect_equal(code, "x <- 1")
+  expect_match(code, "list\\(x = 1\\)")
   expect_match(seen$prompt, "prefer gpsadb_de")
   expect_match(seen$prompt, "query_gene")
 })

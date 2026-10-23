@@ -9,13 +9,11 @@ Do not hand-edit them.
 roxygen2::roxygenise(".")   # or devtools::document()
 ```
 
-Docs are generated with roxygen2 **7.3.3** (see `RoxygenNote` in DESCRIPTION).
-roxygen2 8.x rewrites every existing `.Rd` file (indentation, `\details`
-folding) without changing content, so pin 7.3.3 unless you want that churn:
-
-```r
-remotes::install_version("roxygen2", "7.3.3", lib = "<some lib>")
-```
+Docs follow whichever roxygen2 the machine has installed — no pinned version.
+DESCRIPTION declares it in `Config/roxygen2/version`; regenerate after a
+roxygen2 upgrade and take the resulting `.Rd` reflow in the same commit rather
+than fighting it with a version pin. Do not add a `RoxygenNote` line: it would
+state a second, competing version number.
 
 If you regenerate after deleting `man/`, run `roxygenise()` **twice**: the R6
 "Super class" link (`\link[aisdk.mcp:McpClient]`) resolves only against the

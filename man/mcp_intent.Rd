@@ -4,7 +4,7 @@
 \alias{mcp_intent}
 \title{Let a model write an MCP pipeline from a sentence}
 \usage{
-mcp_intent(intent, clients, model = NULL, context = NULL)
+mcp_intent(intent, clients, model = NULL, context = NULL, discover = TRUE)
 }
 \arguments{
 \item{intent}{What you want, in one sentence.}
@@ -18,6 +18,10 @@ with \code{\link[aisdk:set_model]{aisdk::set_model()}}, so usually you do not pa
 
 \item{context}{Extra instructions for the model, e.g. the typed functions of a
 package that it should prefer over raw \code{mcp_action()} calls.}
+
+\item{discover}{Read the servers' \verb{list_*} tools before writing, so identifier
+values (datasource, library, species) come from the server instead of the
+model's guess. A few extra read-only calls; \code{FALSE} skips them.}
 }
 \value{
 The generated code, as one string.
@@ -29,8 +33,15 @@ it — code you can read, keep and re-run, unlike a one-off agent answer.
 }
 \details{
 The model only sees the tools the servers actually advertise, with their
-parameters and types, and is told to call nothing else. The code is returned
-as text: \strong{it is never evaluated here.} Read it, then run it yourself.
+parameters and types, and is told to call nothing else. Before returning, the
+code is checked against those same schemas by \code{\link[=mcp_check]{mcp_check()}} — unknown tools,
+unknown arguments and missing required arguments are found there, not by a
+second opinion. If the check fails, the model gets one chance to repair the
+code with the exact problems quoted back at it. What still does not check out
+is attached as \code{attr(code, "problems")}.
+
+The code is returned as text: \strong{it is never evaluated here.} Read it, then
+run it yourself.
 }
 \examples{
 \dontrun{

@@ -5,12 +5,40 @@
   vector is written (`as`: JSON array, carriage-return string, or scalar), so a
   cross-server step reduces to `value |> act()`. Unknown tool names and
   ambiguous schemas fail when the action is built, not on first use.
+* New `mcp_run()`: runs the code `mcp_intent()` wrote in its own environment,
+  with the clients bound by name, and returns the named `list(...)` the code
+  ends with. `mcp_intent()` now attaches the intent to the code, `mcp_run()`
+  passes it to the results, and `mcp_explain()` uses it when no question is
+  given, so a pipeline states the question once.
+* `mcp_check()` now also enforces that contract (the code ends with a named
+  list) and reports server tools called as bare functions.
+* New `mcp_explain()`: the last step of a multi-source pipeline. Give it a named
+  list of results and it writes a short interpretation that uses only the
+  numbers in that material, in the language of the question.
+* New `mcp_check()`: reads generated code without running it and reports calls
+  that cannot work according to the servers' own schemas (unknown tool, unknown
+  argument, missing required argument).
 * New `mcp_intent()`: describe a pipeline in one sentence and get back R code
   that uses it, built only from the tools the servers actually advertise. The
-  code is returned and never evaluated. `model = NULL` uses the aisdk default
+  code is checked with `mcp_check()` before it is returned; if the check fails,
+  the model gets one repair round with the exact problems quoted back, and
+  anything left over is attached as `attr(code, "problems")`. The code is
+  returned and never evaluated. `model = NULL` uses the aisdk default
   model, so no model argument is needed when one is configured. `context =`
   passes instructions (a package's typed functions, for instance) so the code
   prefers them over raw `mcp_action()` calls.
+* New `create_mcp_http_client_for()`: one call for a public MCP server that
+  needs no install and no key — `create_mcp_http_client_for("string")` returns
+  a connected client for STRING, `"gpsadb"`, `"interpro"`, `"ols"` and `"gwas"`
+  likewise (see `list_mcp_http_servers()`). Every entry was verified with a
+  full handshake, and `mcp_http_server_name()` maps a client or URL back to its
+  name. After connecting, the leading tool the registry expects is checked, so
+  an endpoint that moved or was repurposed fails with
+  `mcp_endpoint_changed_error` instead of answering with tools that mean
+  something else; `validate_tools = FALSE` skips the extra request.
+  `dev_docs/mcp-http-registry-survey.md` records which other databases were
+  probed and why they are absent (PDBe, NCBI, UniProt, Ensembl, ... have no
+  hosted endpoint).
 
 # aisdk.mcp 0.1.2
 

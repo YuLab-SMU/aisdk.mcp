@@ -5,285 +5,269 @@
 \title{MCP Client}
 \description{
 Connect to and communicate with an MCP server process.
-
+}
+\details{
 Manages connection to an external MCP server via stdio.
 }
 \section{Public fields}{
-  \if{html}{\out{<div class="r6-fields">}}
-  \describe{
-    \item{\code{process}}{The processx process object}
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{process}}{The processx process object}
 
-    \item{\code{server_info}}{Information about the connected server}
+\item{\code{server_info}}{Information about the connected server}
 
-    \item{\code{capabilities}}{Server capabilities}
+\item{\code{capabilities}}{Server capabilities}
 
-    \item{\code{sampling_handler}}{Optional \verb{function(params)} answering server
+\item{\code{sampling_handler}}{Optional \verb{function(params)} answering server
 \code{sampling/createMessage} requests (see \code{\link[=mcp_sampling_handler]{mcp_sampling_handler()}}).}
-  }
-  \if{html}{\out{</div>}}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-  \itemize{
-    \item \href{#method-McpClient-initialize}{\code{McpClient$new()}}
-    \item \href{#method-McpClient-list_tools}{\code{McpClient$list_tools()}}
-    \item \href{#method-McpClient-call_tool}{\code{McpClient$call_tool()}}
-    \item \href{#method-McpClient-call_tool_data}{\code{McpClient$call_tool_data()}}
-    \item \href{#method-McpClient-list_resources}{\code{McpClient$list_resources()}}
-    \item \href{#method-McpClient-read_resource}{\code{McpClient$read_resource()}}
-    \item \href{#method-McpClient-list_prompts}{\code{McpClient$list_prompts()}}
-    \item \href{#method-McpClient-get_prompt}{\code{McpClient$get_prompt()}}
-    \item \href{#method-McpClient-is_alive}{\code{McpClient$is_alive()}}
-    \item \href{#method-McpClient-close}{\code{McpClient$close()}}
-    \item \href{#method-McpClient-as_sdk_tools}{\code{McpClient$as_sdk_tools()}}
-    \item \href{#method-McpClient-clone}{\code{McpClient$clone()}}
-  }
+\itemize{
+\item \href{#method-McpClient-new}{\code{McpClient$new()}}
+\item \href{#method-McpClient-list_tools}{\code{McpClient$list_tools()}}
+\item \href{#method-McpClient-call_tool}{\code{McpClient$call_tool()}}
+\item \href{#method-McpClient-call_tool_data}{\code{McpClient$call_tool_data()}}
+\item \href{#method-McpClient-list_resources}{\code{McpClient$list_resources()}}
+\item \href{#method-McpClient-read_resource}{\code{McpClient$read_resource()}}
+\item \href{#method-McpClient-list_prompts}{\code{McpClient$list_prompts()}}
+\item \href{#method-McpClient-get_prompt}{\code{McpClient$get_prompt()}}
+\item \href{#method-McpClient-is_alive}{\code{McpClient$is_alive()}}
+\item \href{#method-McpClient-close}{\code{McpClient$close()}}
+\item \href{#method-McpClient-as_sdk_tools}{\code{McpClient$as_sdk_tools()}}
+\item \href{#method-McpClient-clone}{\code{McpClient$clone()}}
+}
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-McpClient-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-McpClient-initialize}{}}}
-\subsection{\code{McpClient$new()}}{
-  Create a new MCP Client
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$new(
+\if{html}{\out{<a id="method-McpClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-McpClient-new}{}}}
+\subsection{Method \code{new()}}{
+Create a new MCP Client
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$new(
   command,
   args = character(),
   env = NULL,
   sampling_handler = NULL,
   inherit_env = FALSE
-)}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{command}}{The command to run (e.g., "npx", "python")}
-      \item{\code{args}}{Command arguments (e.g., c("-y", "@modelcontextprotocol/server-github"))}
-      \item{\code{env}}{Environment variables as a named character vector}
-      \item{\code{sampling_handler}}{Optional \verb{function(params)} that answers a
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{command}}{The command to run (e.g., "npx", "python")}
+
+\item{\code{args}}{Command arguments (e.g., c("-y", "@modelcontextprotocol/server-github"))}
+
+\item{\code{env}}{Environment variables as a named character vector}
+
+\item{\code{sampling_handler}}{Optional \verb{function(params)} that answers a
 server's \code{sampling/createMessage} requests by returning an MCP
 CreateMessageResult. When supplied, the client advertises the \code{sampling}
 capability. Use \code{\link[=mcp_sampling_handler]{mcp_sampling_handler()}} to back it with an aisdk model.}
-      \item{\code{inherit_env}}{Logical. A local MCP server is a third-party binary, so
+
+\item{\code{inherit_env}}{Logical. A local MCP server is a third-party binary, so
 by default (\code{FALSE}) it does NOT inherit this session's environment —
 only a minimal set of non-secret system variables plus whatever you pass
 in \code{env}, so your model API keys are never handed to the server. Set
 \code{TRUE} to inherit the parent environment (still with recognised
 credentials stripped) for a server you trust that needs it.}
-    }
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    A new McpClient object
-  }
 }
-
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A new McpClient object
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-list_tools"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-list_tools}{}}}
-\subsection{\code{McpClient$list_tools()}}{
-  List available tools from the MCP server
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$list_tools()}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    A list of tool definitions
-  }
+\subsection{Method \code{list_tools()}}{
+List available tools from the MCP server
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$list_tools()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+A list of tool definitions
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-call_tool"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-call_tool}{}}}
-\subsection{\code{McpClient$call_tool()}}{
-  Call a tool on the MCP server
+\subsection{Method \code{call_tool()}}{
+Call a tool on the MCP server
 
 A tool that reports failure (\code{isError: true}, the MCP convention for a
 tool-level error such as "unknown dataset") raises a condition of class
 \code{mcp_tool_error} whose message is the server's explanation.
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$call_tool(name, arguments = list())}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{name}}{The tool name}
-      \item{\code{arguments}}{Tool arguments as a named list}
-    }
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    The tool result
-  }
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$call_tool(name, arguments = list())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The tool name}
+
+\item{\code{arguments}}{Tool arguments as a named list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The tool result
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-call_tool_data"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-call_tool_data}{}}}
-\subsection{\code{McpClient$call_tool_data()}}{
-  Call a tool and return its payload as plain R data
+\subsection{Method \code{call_tool_data()}}{
+Call a tool and return its payload as plain R data
 
 Prefers MCP structured output (\code{structuredContent}, 2025-06-18) and falls
 back to parsing the text block of \code{content} — older servers and some
 tools only fill the latter. Nested objects and arrays come back as nested
 lists, ready to be turned into records.
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$call_tool_data(name, arguments = list())}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{name}}{The tool name}
-      \item{\code{arguments}}{Tool arguments as a named list}
-    }
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    The tool payload (usually a named list).
-  }
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$call_tool_data(name, arguments = list())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The tool name}
+
+\item{\code{arguments}}{Tool arguments as a named list}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The tool payload (usually a named list).
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-list_resources"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-list_resources}{}}}
-\subsection{\code{McpClient$list_resources()}}{
-  List available resources from the MCP server
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$list_resources()}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    A list of resource definitions
-  }
+\subsection{Method \code{list_resources()}}{
+List available resources from the MCP server
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$list_resources()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+A list of resource definitions
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-read_resource"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-read_resource}{}}}
-\subsection{\code{McpClient$read_resource()}}{
-  Read a resource from the MCP server
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$read_resource(uri)}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{uri}}{The resource URI}
-    }
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    The resource contents
-  }
+\subsection{Method \code{read_resource()}}{
+Read a resource from the MCP server
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$read_resource(uri)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{uri}}{The resource URI}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The resource contents
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-list_prompts"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-list_prompts}{}}}
-\subsection{\code{McpClient$list_prompts()}}{
-  List available prompt templates from the MCP server (\code{prompts/list}).
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$list_prompts()}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    A list of prompt definitions (name, description, arguments).
-  }
+\subsection{Method \code{list_prompts()}}{
+List available prompt templates from the MCP server (\code{prompts/list}).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$list_prompts()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+A list of prompt definitions (name, description, arguments).
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-get_prompt"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-get_prompt}{}}}
-\subsection{\code{McpClient$get_prompt()}}{
-  Get a prompt from the MCP server, rendered with the given arguments
+\subsection{Method \code{get_prompt()}}{
+Get a prompt from the MCP server, rendered with the given arguments
 (\code{prompts/get}).
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$get_prompt(name, arguments = list())}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{name}}{The prompt name.}
-      \item{\code{arguments}}{A named list of prompt arguments (default none).}
-    }
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    The prompt result (description + messages).
-  }
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$get_prompt(name, arguments = list())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The prompt name.}
+
+\item{\code{arguments}}{A named list of prompt arguments (default none).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The prompt result (description + messages).
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-is_alive"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-is_alive}{}}}
-\subsection{\code{McpClient$is_alive()}}{
-  Check if the MCP server process is alive
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$is_alive()}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    TRUE if alive, FALSE otherwise
-  }
+\subsection{Method \code{is_alive()}}{
+Check if the MCP server process is alive
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$is_alive()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+TRUE if alive, FALSE otherwise
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-close"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-close}{}}}
-\subsection{\code{McpClient$close()}}{
-  Close the MCP client connection
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$close()}
-    \if{html}{\out{</div>}}
-  }
+\subsection{Method \code{close()}}{
+Close the MCP client connection
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$close()}\if{html}{\out{</div>}}
 }
 
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-as_sdk_tools"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-as_sdk_tools}{}}}
-\subsection{\code{McpClient$as_sdk_tools()}}{
-  Convert MCP tools to SDK Tool objects
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$as_sdk_tools()}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    A list of Tool objects
-  }
+\subsection{Method \code{as_sdk_tools()}}{
+Convert MCP tools to SDK Tool objects
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$as_sdk_tools()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+A list of Tool objects
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpClient-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-McpClient-clone}{}}}
-\subsection{\code{McpClient$clone()}}{
-  The objects of this class are cloneable with this method.
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpClient$clone(deep = FALSE)}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{deep}}{Whether to make a deep clone.}
-    }
-    \if{html}{\out{</div>}}
-  }
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpClient$clone(deep = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
 }

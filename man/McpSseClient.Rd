@@ -5,82 +5,82 @@
 \title{MCP SSE Client}
 \description{
 Connect to an MCP server via Server-Sent Events (SSE).
-
+}
+\details{
 Manages connection to a remote MCP server via SSE transport.
 }
 \section{Super class}{
-\code{\link[aisdk.mcp:McpClient]{McpClient}} -> \code{McpSseClient}
+\code{\link[aisdk.mcp:McpClient]{aisdk.mcp::McpClient}} -> \code{McpSseClient}
 }
 \section{Public fields}{
-  \if{html}{\out{<div class="r6-fields">}}
-  \describe{
-    \item{\code{endpoint}}{The POST endpoint for sending messages (received from SSE init)}
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{endpoint}}{The POST endpoint for sending messages (received from SSE init)}
 
-    \item{\code{auth_headers}}{Authentication headers}
-  }
-  \if{html}{\out{</div>}}
+\item{\code{auth_headers}}{Authentication headers}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-  \itemize{
-    \item \href{#method-McpSseClient-initialize}{\code{McpSseClient$new()}}
-    \item \href{#method-McpSseClient-clone}{\code{McpSseClient$clone()}}
-  }
+\itemize{
+\item \href{#method-McpSseClient-new}{\code{McpSseClient$new()}}
+\item \href{#method-McpSseClient-clone}{\code{McpSseClient$clone()}}
 }
-\if{html}{\out{<details><summary>Inherited methods</summary>
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
 <ul>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="as_sdk_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-as_sdk_tools'><code>McpClient$as_sdk_tools()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="call_tool"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-call_tool'><code>McpClient$call_tool()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="call_tool_data"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-call_tool_data'><code>McpClient$call_tool_data()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="close"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-close'><code>McpClient$close()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="get_prompt"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-get_prompt'><code>McpClient$get_prompt()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="is_alive"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-is_alive'><code>McpClient$is_alive()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_prompts"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_prompts'><code>McpClient$list_prompts()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_resources"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_resources'><code>McpClient$list_resources()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_tools'><code>McpClient$list_tools()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="read_resource"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-read_resource'><code>McpClient$read_resource()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="as_sdk_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-as_sdk_tools'><code>aisdk.mcp::McpClient$as_sdk_tools()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="call_tool"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-call_tool'><code>aisdk.mcp::McpClient$call_tool()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="call_tool_data"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-call_tool_data'><code>aisdk.mcp::McpClient$call_tool_data()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="close"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-close'><code>aisdk.mcp::McpClient$close()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="get_prompt"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-get_prompt'><code>aisdk.mcp::McpClient$get_prompt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="is_alive"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-is_alive'><code>aisdk.mcp::McpClient$is_alive()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_prompts"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_prompts'><code>aisdk.mcp::McpClient$list_prompts()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_resources"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_resources'><code>aisdk.mcp::McpClient$list_resources()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="list_tools"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-list_tools'><code>aisdk.mcp::McpClient$list_tools()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="aisdk.mcp" data-topic="McpClient" data-id="read_resource"><a href='../../aisdk.mcp/html/McpClient.html#method-McpClient-read_resource'><code>aisdk.mcp::McpClient$read_resource()</code></a></span></li>
 </ul>
-</details>}}
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-McpSseClient-initialize"></a>}}
-\if{latex}{\out{\hypertarget{method-McpSseClient-initialize}{}}}
-\subsection{\code{McpSseClient$new()}}{
-  Create a new MCP SSE Client
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpSseClient$new(url, headers = list())}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{url}}{The SSE endpoint URL}
-      \item{\code{headers}}{named list of headers (e.g. for auth)}
-    }
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    A new McpSseClient object
-  }
+\if{html}{\out{<a id="method-McpSseClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-McpSseClient-new}{}}}
+\subsection{Method \code{new()}}{
+Create a new MCP SSE Client
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpSseClient$new(url, headers = list())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{url}}{The SSE endpoint URL}
+
+\item{\code{headers}}{named list of headers (e.g. for auth)}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A new McpSseClient object
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-McpSseClient-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-McpSseClient-clone}{}}}
-\subsection{\code{McpSseClient$clone()}}{
-  The objects of this class are cloneable with this method.
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{McpSseClient$clone(deep = FALSE)}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{deep}}{Whether to make a deep clone.}
-    }
-    \if{html}{\out{</div>}}
-  }
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{McpSseClient$clone(deep = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
 }

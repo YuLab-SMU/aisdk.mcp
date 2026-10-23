@@ -25,8 +25,6 @@ fake_transport <- function(responses) {
   fn
 }
 
-sent_messages <- function(transport) attr(transport, "state")$messages
-
 standard_responses <- function() {
   list(
     initialize = function(msg) {
